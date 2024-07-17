@@ -8,7 +8,7 @@
   color: white;
   padding: 12vh 2rem 2rem 2rem;
   border-radius: 0.5rem;
-  transform: translateX(500px);
+  transform: translateX(600px);
   transition: all 1s ease-in-out;
   z-index: 1;
 }

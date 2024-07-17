@@ -1,6 +1,7 @@
 .homepage__container {
   position: relative;
-  width: 500px;
+  width: 100%;
+  max-width: 550px;
   height: 100%;
   border-radius: 0.5rem;
   transition: background-color 3s ease-in-out;
@@ -100,7 +101,7 @@
 }
 
 .homepage__container.show__detail .home__buttons button.detail {
-  transform: translateX(-500px);
+  transform: translateX(-600px);
 }
 
 .homepage__container.show__detail .home__buttons button.form {

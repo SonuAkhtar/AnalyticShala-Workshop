@@ -14,7 +14,7 @@
   justify-content: space-around;
   gap: 2rem;
   overflow: hidden;
-  transform: translateX(-500px);
+  transform: translateX(-600px);
   transition: all 1s ease-in-out;
   z-index: 2;
 }

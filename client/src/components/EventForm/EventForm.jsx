@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./eventForm.css";
 
 const EventForm = ({ showDetail }) => {
   // state to store form Data
+  const navigate = useNavigate();
   const [focused, setFocused] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -23,40 +25,25 @@ const EventForm = ({ showDetail }) => {
 
   const handleFormChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
-    // const errors = handleFormError();
-    // console.log("updated", errors);
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    // axios
-    //   .post("https://analyticshala-workshop-backend.onrender.com", { ...formData })
-    //   .then((result) => {
-    //     console.log("Result: ", result);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error while submitting data :", error);
-    //   });
+    axios
+      .post("https://analyticshala-workshop-backend.onrender.com", {
+        ...formData,
+      })
+      .then((result) => {
+        console.log("Result: ", result);
+        navigate("/success");
+      })
+      .catch((error) => {
+        console.log("Error while submitting data :", error);
+      });
   };
 
   const handleBlur = (e) => {};
-
-  const handleFormError = () => {
-    // const namePattern = "^[A-Za-z0-9]{3,20}$";
-    // setFormError({ ...formError, name: formData.name.length <= 3 });
-
-    // if (formData.attending === "") {
-    //   setFormError({ ...formError, attending: true });
-    // }
-    // if (formData.profession === "") {
-    //   setFormError({ ...formError, profession: true });
-    // }
-
-    return true;
-  };
-  console.log(formError);
 
   return (
     <div className={`event__container ${!showDetail && "active"}`}>
@@ -76,7 +63,7 @@ const EventForm = ({ showDetail }) => {
             pattern="^[A-Za-z ]{3,20}$"
             maxLength="20"
             onBlur={handleBlur}
-            focused={focused}
+            focused={focused.toString()}
           />
 
           <span className={`input__error ${formError.name && "error"}`}>
@@ -93,7 +80,7 @@ const EventForm = ({ showDetail }) => {
             onChange={handleFormChange}
             required
             onBlur={handleBlur}
-            focused={focused}
+            focused={focused.toString()}
           />
           <span className={`input__error ${formError.email && "error"}`}>
             Please provide a valid Email
@@ -111,7 +98,7 @@ const EventForm = ({ showDetail }) => {
             pattern="^[0-9]{10}$"
             maxLength="10"
             onBlur={handleBlur}
-            focused={focused}
+            focused={focused.toString()}
           />
           <span className={`input__error ${formError.phone && "error"}`}>
             Please provide a valid Phone Number
@@ -125,7 +112,7 @@ const EventForm = ({ showDetail }) => {
             onChange={handleFormChange}
             required
             onBlur={handleBlur}
-            focused={focused}
+            focused={focused.toString()}
           >
             <option value="" hidden>
               How you'll Attend?
@@ -145,7 +132,7 @@ const EventForm = ({ showDetail }) => {
             onChange={handleFormChange}
             required
             onBlur={handleBlur}
-            focused={focused}
+            focused={focused.toString()}
           >
             <option value="" hidden>
               What's your Profession?
