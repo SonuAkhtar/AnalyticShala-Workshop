@@ -43,6 +43,7 @@
 .input__area input,
 .input__area select {
   width: 100%;
+  min-height: 3rem;
   padding: 0.75rem;
   border: none;
   border: 1px solid white;
@@ -118,5 +119,12 @@ form button:hover {
     background-color: navy;
     color: white;
     box-shadow: 0 0 2px white;
+  }
+
+  form button:hover {
+    background-color: navy;
+    color: white;
+    border: none;
+    border-color: transparent;
   }
 }
