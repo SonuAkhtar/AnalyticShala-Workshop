@@ -22,7 +22,7 @@ app.listen(3000, () => {
 usersController();
 
 // method to execute on API request
-app.post("/register", (req, res) => {
+app.post("/", (req, res) => {
   userModel
     .create(req.body)
     .then((user) => res.status(200).send(user))

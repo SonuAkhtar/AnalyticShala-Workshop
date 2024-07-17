@@ -32,7 +32,7 @@ const EventForm = ({ showDetail }) => {
     e.preventDefault();
 
     // axios
-    //   .post("http://localhost:3000/register", { ...formData })
+    //   .post("https://analyticshala-workshop-backend.onrender.com", { ...formData })
     //   .then((result) => {
     //     console.log("Result: ", result);
     //   })
