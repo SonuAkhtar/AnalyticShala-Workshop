@@ -1,8 +1,20 @@
 .event__container {
-  background-color: royalblue;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
   color: white;
-  padding: 2rem 1rem;
+  padding: 12vh 2rem 2rem 2rem;
   border-radius: 0.5rem;
+  transform: translateX(500px);
+  transition: all 1s ease-in-out;
+  z-index: 1;
+}
+
+.event__container.active {
+  transform: translateX(0px);
 }
 
 .event__title {
@@ -20,11 +32,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.5rem;
 }
 
 .input__area {
-  position: relative;
-  min-width: 300px;
+  width: 90%;
+  min-width: 250px;
 }
 
 .input__area input,
@@ -33,9 +46,9 @@
   padding: 0.75rem;
   border: none;
   border: 1px solid white;
+  color: #333;
   border-radius: 0.5rem;
   outline: none;
-  margin: 0.75rem 0;
   transition: all 0.3s ease;
 }
 
@@ -48,12 +61,24 @@
   border-radius: 1rem;
 }
 
-button {
-  margin-top: 1rem;
+.input__error {
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: coral;
+  visibility: hidden;
+}
+
+.input__area input:invalid[focused="true"] ~ span,
+.input__area select:invalid[focused="true"] ~ span {
+  visibility: visible;
+}
+
+form button {
+  margin-top: 2rem;
   width: 90%;
   font-size: 1rem;
   font-weight: 600;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   background-color: white;
   color: royalblue;
@@ -63,9 +88,35 @@ button {
   transition: all 0.3s ease;
 }
 
-button:hover {
+form button:hover {
   border-radius: 1rem;
   border-color: white;
   background-color: royalblue;
   color: white;
+}
+
+@media screen and (max-width: 480px) {
+  .event__title {
+    letter-spacing: 0px;
+    line-height: 1.75rem;
+  }
+
+  .event__container form {
+    gap: 0;
+  }
+
+  .input__area {
+    width: 100%;
+  }
+
+  form button {
+    margin-top: 1rem;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 1rem;
+    background-color: navy;
+    color: white;
+    box-shadow: 0 0 2px white;
+  }
 }

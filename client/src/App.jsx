@@ -1,9 +1,9 @@
-import EventForm from "./components/EventForm/EventForm";
+import Homepage from "./pages/Homepage/Homepage";
 
 const App = () => {
   return (
     <div className="app">
-      <EventForm />
+      <Homepage />
     </div>
   );
 };
