@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import successImage from "./../../../assets/success.jpg";
+import successImage from "./../../../assets/success.png";
 import "./success.css";
 
 const Success = () => {

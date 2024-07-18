@@ -36,15 +36,15 @@ const EventDetail = ({ showDetail }) => {
         <div className="footer__text">Let's connect on social media</div>
 
         <div className="footer__social">
-          <a href="https://www.google.com/">
+          <a href="https://www.google.com/" target="blank">
             <i className="fa-brands fa-linkedin-in" />
           </a>
 
-          <a href="https://www.google.com/">
+          <a href="https://www.google.com/" target="blank">
             <i className="fa-brands fa-facebook-f" />
           </a>
 
-          <a href="https://www.google.com/">
+          <a href="https://www.google.com/" target="blank">
             <i className="fa-brands fa-x-twitter" />
           </a>
         </div>

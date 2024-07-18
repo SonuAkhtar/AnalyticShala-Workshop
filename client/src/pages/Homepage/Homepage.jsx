@@ -5,6 +5,7 @@ import "./homepage.css";
 
 const Homepage = () => {
   const [showDetail, setShowDetail] = useState(false);
+
   return (
     <div className={`homepage__container ${showDetail && "show__detail"}`}>
       <div className="show__detail-bg"></div>

@@ -64,13 +64,16 @@
 
 .input__error {
   font-size: 0.75rem;
-  font-weight: 300;
-  color: coral;
+  font-weight: 400;
+  padding: 0 0.25rem;
+  border-radius: 0.25rem;
+  color: red;
+  background-color: white;
   visibility: hidden;
 }
 
-.input__area input:invalid[focused="true"] ~ span,
-.input__area select:invalid[focused="true"] ~ span {
+.input__area input:invalid[focused="true"] ~ .input__error,
+.input__area select:invalid[focused="true"] ~ .input__error {
   visibility: visible;
 }
 
