@@ -1,5 +1,6 @@
 import "./eventDetail.css";
 import speakerImage from "./../../../assets/event-speaker.webp";
+import Social from "../Social/Social";
 
 const EventDetail = ({ showDetail }) => {
   return (
@@ -32,23 +33,7 @@ const EventDetail = ({ showDetail }) => {
         </div>
       </div>
 
-      <div className="eventDetail__footer">
-        <div className="footer__text">Let's connect on social media</div>
-
-        <div className="footer__social">
-          <a href="https://www.google.com/" target="blank">
-            <i className="fa-brands fa-linkedin-in" />
-          </a>
-
-          <a href="https://www.google.com/" target="blank">
-            <i className="fa-brands fa-facebook-f" />
-          </a>
-
-          <a href="https://www.google.com/" target="blank">
-            <i className="fa-brands fa-x-twitter" />
-          </a>
-        </div>
-      </div>
+      <Social active={showDetail} />
     </div>
   );
 };

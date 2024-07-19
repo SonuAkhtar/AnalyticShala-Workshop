@@ -1,14 +1,24 @@
-import { useState } from "react";
+//React imports
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+// External imports
 import axios from "axios";
+
+// Component imports
 import Loader from "../Loader/Loader";
+import Input from "../Input/Input";
+import Select from "../Select/Select";
+
+// Css import
 import "./eventForm.css";
 
 const EventForm = ({ showDetail }) => {
   // state to store form Data
   const navigate = useNavigate();
-  const [formReady, setFormReady] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [formReady, setFormReady] = useState(false);
+  const [errorName, setErrorName] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -18,74 +28,59 @@ const EventForm = ({ showDetail }) => {
     profession: "",
   });
 
-  const [formError, setFormError] = useState({
-    name: "false",
-    email: "false",
-    phone: "false",
-    attending: "false",
-    profession: "false",
-  });
-
+  // Method: handle form inputs change
   const handleFormChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Method: handle form inputs validations
   const handleFormValidation = () => {
     const namePattern = /^[A-Za-z ]{3,20}$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phonePattern = /^[6-9]d{9}$/;
+    const phonePattern = /^[6-9]\d{9}$/;
 
     if (formData.name === "" || !namePattern.test(formData.name)) {
-      setFormData({ ...formData, [name]: true });
-      return false;
+      setErrorName("name");
+    } else if (formData.email === "" || !emailPattern.test(formData.email)) {
+      setErrorName("email");
+    } else if (formData.phone === "" || !phonePattern.test(formData.phone)) {
+      setErrorName("phone");
+    } else if (formData.attending === "") {
+      setErrorName("attending");
+    } else if (formData.profession === "") {
+      setErrorName("profession");
+    } else {
+      setErrorName("");
+      setFormReady(true);
     }
-    if (formData.email === "" || !emailPattern.test(formData.email)) {
-      return false;
-    }
-    if (formData.phone === "" || !phonePattern.test(formData.phone)) {
-      return false;
-    }
-    if (formData.attending === "") {
-      return false;
-    }
-    if (formData.profession === "") {
-      return false;
-    }
-    return true;
   };
 
+  // Method: run form validation on values change
+  useEffect(() => {
+    handleFormValidation();
+  }, [formData]);
+
+  // Method: handle form submit
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const isFormReady = handleFormValidation();
-    if (isFormReady) {
+    if (formReady) {
       setLoader(true);
+
+      axios
+        .post("https://analyticshala-workshop-backend.onrender.com", {
+          ...formData,
+        })
+        .then((result) => {
+          console.log("Result: ", result);
+          setLoader(false);
+          navigate("/success");
+        })
+        .catch((error) => {
+          setLoader(false);
+          console.log("Error while submitting data :", error);
+        });
     }
-
-    setTimeout(() => {
-      setLoader(false);
-      if (formReady) {
-        navigate("/success");
-      }
-    }, 2000);
-
-    // axios
-    //   .post("https://analyticshala-workshop-backend.onrender.com", {
-    //     ...formData,
-    //   })
-    //   .then((result) => {
-    //     console.log("Result: ", result);
-    //     setLoader(false);
-    //     navigate("/success");
-    //   })
-    //   .catch((error) => {
-    //     setLoader(false);
-    //     console.log("Error while submitting data :", error);
-    //   });
-  };
-
-  const handleBlur = (e) => {
-    setFormError({ ...formError, [e.target.name]: "true" });
   };
 
   return (
@@ -96,94 +91,64 @@ const EventForm = ({ showDetail }) => {
         <h2 className="event__title">
           Data Warehouse <span>Workshop</span>
         </h2>
-
         <form onSubmit={handleFormSubmit}>
-          <div className="input__area">
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={formData.name}
-              onChange={handleFormChange}
-              required
-              pattern="^[A-Za-z ]{3,20}$"
-              maxLength="20"
-              onBlur={handleBlur}
-              focused={formError.name}
-            />
+          <Input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleFormChange}
+            maxLength="20"
+            errorName={errorName}
+            errorText=" Please provide alphabetic value with minimum 3 letters"
+          />
 
-            <span className="input__error">
-              Please provide alphabetic value with minimum 3 letters
-            </span>
-          </div>
+          <Input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleFormChange}
+            errorName={errorName}
+            errorText="Please provide a valid Email"
+          />
 
-          <div className="input__area">
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleFormChange}
-              required
-              onBlur={handleBlur}
-              focused={formError.email}
-            />
-            <span className="input__error">Please provide a valid Email</span>
-          </div>
+          <Input
+            type="text"
+            name="phone"
+            placeholder="Phone Number"
+            value={formData.phone}
+            onChange={handleFormChange}
+            maxLength="10"
+            errorName={errorName}
+            errorText="Please provide a valid Phone Number"
+          />
 
-          <div className="input__area">
-            <input
-              type="text"
-              name="phone"
-              placeholder="Phone Number"
-              value={formData.phone}
-              onChange={handleFormChange}
-              required
-              pattern="^[6-9]\d{9}$"
-              maxLength="10"
-              onBlur={handleBlur}
-              focused={formError.phone}
-            />
-            <span className="input__error">
-              Please provide a valid Phone Number
-            </span>
-          </div>
+          <Select
+            name="attending"
+            value={formData.attending}
+            onChange={handleFormChange}
+            defaultOption="How you'll Attend?"
+            options={[
+              { id: 1, value: "offline", text: "Offline" },
+              { id: 2, value: "online", text: "Online" },
+            ]}
+            errorName={errorName}
+            errorText="Please select Attend Type"
+          />
 
-          <div className="input__area select">
-            <select
-              name="attending"
-              value={formData.attending}
-              onChange={handleFormChange}
-              required
-              onBlur={handleBlur}
-              focused={formError.attending}
-            >
-              <option value="" hidden>
-                How you'll Attend?
-              </option>
-              <option value="offline">Offline</option>
-              <option value="online">Online</option>
-            </select>
-            <span className="input__error">Please select Attend Type</span>
-          </div>
-
-          <div className="input__area select">
-            <select
-              name="profession"
-              value={formData.profession}
-              onChange={handleFormChange}
-              required
-              onBlur={handleBlur}
-              focused={formError.profession}
-            >
-              <option value="" hidden>
-                What's your Profession?
-              </option>
-              <option value="student">Student</option>
-              <option value="working">Working</option>
-            </select>
-            <span className="input__error">Please select your profession</span>
-          </div>
+          <Select
+            name="profession"
+            value={formData.profession}
+            onChange={handleFormChange}
+            defaultOption="What's your Profession?"
+            options={[
+              { id: 1, value: "student", text: "Student" },
+              { id: 2, value: "working", text: "Working" },
+            ]}
+            errorName={errorName}
+            errorText="Please select your profession"
+          />
 
           <button onClick={handleFormSubmit} type="submit">
             Register

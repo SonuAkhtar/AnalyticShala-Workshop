@@ -35,48 +35,6 @@
   gap: 0.5rem;
 }
 
-.input__area {
-  width: 90%;
-  min-width: 250px;
-}
-
-.input__area input,
-.input__area select {
-  width: 100%;
-  min-height: 3rem;
-  padding: 0.75rem;
-  border: none;
-  border: 1px solid white;
-  color: #333;
-  border-radius: 0.5rem;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-.input__area input::placeholder {
-  color: #333;
-}
-
-.input__area input:focus,
-.input__area select:focus {
-  border-radius: 1rem;
-}
-
-.input__error {
-  font-size: 0.75rem;
-  font-weight: 400;
-  padding: 0 0.25rem;
-  border-radius: 0.25rem;
-  color: red;
-  background-color: white;
-  visibility: hidden;
-}
-
-.input__area input:invalid[focused="true"] ~ .input__error,
-.input__area select:invalid[focused="true"] ~ .input__error {
-  visibility: visible;
-}
-
 form button {
   margin-top: 2rem;
   width: 90%;
@@ -109,10 +67,6 @@ form button:hover {
     gap: 0;
   }
 
-  .input__area {
-    width: 100%;
-  }
-
   form button {
     margin-top: 1rem;
     width: 100%;
@@ -122,12 +76,5 @@ form button:hover {
     background-color: navy;
     color: white;
     box-shadow: 0 0 2px white;
-  }
-
-  form button:hover {
-    background-color: navy;
-    color: white;
-    border: none;
-    border-color: transparent;
   }
 }
