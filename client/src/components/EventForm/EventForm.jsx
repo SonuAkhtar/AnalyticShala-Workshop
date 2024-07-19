@@ -100,7 +100,7 @@ const EventForm = ({ showDetail }) => {
             onChange={handleFormChange}
             maxLength="20"
             errorName={errorName}
-            errorText=" Please provide alphabetic value with minimum 3 letters"
+            errorText="Name should have minimum 3 letters"
           />
 
           <Input

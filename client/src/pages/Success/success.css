@@ -5,7 +5,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
 }
 
 .success__wrapper {
@@ -50,4 +49,11 @@
   text-decoration: underline;
   color: lightgreen;
   cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+  .input__wrapper {
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
 }
